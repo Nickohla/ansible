@@ -1,0 +1,26 @@
+---
+- name: install LAMP
+  hosts: all
+  remote_user: root
+
+###apache  
+  tasks:
+  - name: install apache httpd
+    ansible.builtin.apt: 
+      name: apache2
+      state: latest
+
+###MariaDB
+  - name: install mariadb
+    ansible.builtin.apt:
+      name: "{{item}}"
+    loop:
+        - mariadb-client
+        - mariadb-server
+    become: yes        
+
+###phpµ
+  - name: install php
+    ansible.builtin.apt:
+      name: php
+
